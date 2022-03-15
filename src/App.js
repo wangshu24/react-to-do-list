@@ -1,13 +1,15 @@
 import React, {useState, useRef, useEffect} from 'react';
 import TodoList from "./TodoList";
 import { v4 as uuidv4 } from 'uuid';
-
+//Following the guidance of WebDevSimplified
 
 function App() {  
+
   const [todos,setTodos] = useState([])
   const todoNameRef = useRef()
   const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
+// Persist
 useEffect(() =>{
   const storedTodo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
   if (storedTodo) setTodos(storedTodo)
@@ -18,12 +20,13 @@ useEffect(() => {
 }, [todos])
 
   function toggleTodo(id){
-    const newTodos = [...todos]
+    const newTodos = [...todos] //When change state, don't do it directly, make copy then change
     const todo = newTodos.find(todo => todo.id === id)
     todo.complete = !todo.complete
     setTodos(newTodos)
 
-  }
+  } //Persist end
+
 
   function handleAddTodo(e){
     const name = todoNameRef.current.value
